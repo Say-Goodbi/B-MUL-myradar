@@ -1,71 +1,79 @@
 /*
-** EPITECH PROJECT, 2024
-** my_radar
+** EPITECH PROJECT, 2025
+** My Radar
 ** File description:
-** Planes go zeeeeeee
+** Planes go brbrbrrrrr
 */
 
-#include <SFML/Graphics.h>
+#include "myradar.h"
 
-sfCircleShape *create_circle(sfVector2f position, float radius)
+void manage_event(sfEvent *event, game_t *game)
 {
-    sfCircleShape *circ = sfCircleShape_create();
-    sfColor color = sfWhite;
-    sfColor transp = sfTransparent;
-
-    sfCircleShape_setPosition(circ, position);
-    sfCircleShape_setOutlineThickness(circ, 1);
-    sfCircleShape_setOutlineColor(circ, color);
-    sfCircleShape_setFillColor(circ, transp);
-    sfCircleShape_setRadius(circ, radius);
-    return circ;
-}
-
-float square(float nb)
-{
-    return nb * nb;
-}
-
-int circles_collide(sfCircleShape *circ1, sfCircleShape *circ2)
-{
-    sfVector2f pos1 = sfCircleShape_getPosition(circ1);
-    sfVector2f pos2 = sfCircleShape_getPosition(circ2);
-    float r1 = sfCircleShape_getRadius(circ1);
-    float r2 = sfCircleShape_getRadius(circ2);
-
-    if (square(pos1.x - pos2.x) + square(pos1.y - pos2.y) > r1 + r2) {
-        return 1; 
+    if (event->type == sfEvtClosed)
+        sfRenderWindow_close(game->win);
+    if (event->type == sfEvtKeyPressed) {
+        if (event->key.code == sfKeyL)
+            interact_hitboxes(game);
+        if (event->key.code == sfKeyS)
+            interact_sprites_visibility(game);
+        if (event->key.code == sfKeyC)
+            interact_divide_visibility(game);
     }
+}
+
+void tick_action(game_t *game, sfClock *clock)
+{
+    sfTime elapsed = {0};
+
+    move_planes(game);
+    divide_chunk(game->original_chunk);
+    print_framerate(game);
+    elapsed = sfClock_getElapsedTime(clock);
+    if (elapsed.microseconds >= 1000 / MAX_FRAMERATE) {
+        draw_window(game);
+        sfClock_restart(clock);
+    }
+    if (empty_chunk(game->original_chunk) == 1) {
+        sfRenderWindow_close(game->win);
+        my_put_str(1, "All planes either landed or crashed.\n");
+    }
+}
+
+int my_radar(structures_t *towers_and_planes)
+{
+    game_t *game = new_game_instance(towers_and_planes);
+    sfClock *clock = sfClock_create();
+    sfEvent event;
+
+    if (!game)
+        return 84;
+    while (sfRenderWindow_isOpen(game->win)) {
+        while (sfRenderWindow_pollEvent(game->win, &event))
+            manage_event(&event, game);
+        tick_action(game, clock);
+    }
+    destroy_game_instance(game);
     return 0;
 }
 
-void fill_colors(sfCircleShape *circ1, sfCircleShape *circ2)
+int main(int ac, char **av)
 {
-    sfCircleShape_setFillColor(circ1, sfWhite);
-    sfCircleShape_setFillColor(circ2, sfWhite);
-}
+    FILE *stream = NULL;
+    structures_t *towers_and_planes = my_calloc(1, sizeof(structures_t));
+    int script_res = 0;
 
-int main()
-{
-    sfVideoMode mode = {800, 1000, 32};
-    sfRenderWindow *win = sfRenderWindow_create(mode, "My Radar", sfResize | sfClose, NULL);
-    sfCircleShape *circ1 = create_circle((sfVector2f){300, 300}, 100.0f);
-    sfCircleShape *circ2 = create_circle((sfVector2f){600, 500}, 70.0f);
-    sfEvent event;
-
-    while (sfRenderWindow_isOpen(win)) {
-        while (sfRenderWindow_pollEvent(win, &event)) {
-            analyse_events(event, win);
-        }
-
-        if (circles_collide(circ1, circ2) == 1)
-            fill_colors(circ1, circ2);
-        sfRenderWindow_clear(win, sfBlack);
-        sfRenderWindow_drawCircleShape(win, circ1, NULL);
-        sfRenderWindow_drawCircleShape(win, circ2, NULL);
-        sfRenderWindow_display(win);
+    if (ac != 2 || towers_and_planes == NULL) {
+        print_nofilepath(ac - 1);
+        return exit_error("");
     }
-    sfRenderWindow_destroy(win);
-    sfCircleShape_destroy(circ1);
-    sfCircleShape_destroy(circ2);
+    if (my_strcmp("-h", av[1]) == 0)
+        return display_help();
+    stream = fopen(av[1], "r");
+    if (stream == NULL)
+        return exit_error("Error : Can't open the given filepath.\n");
+    script_res = get_script(towers_and_planes, stream);
+    fclose(stream);
+    if (script_res != 0)
+        return exit_error("Error : Given script is invalid.\n");
+    return my_radar(towers_and_planes);
 }
