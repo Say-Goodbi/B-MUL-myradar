@@ -35,7 +35,6 @@ void through_sides(tower_t *tower, llist_t **towers)
         tower_rep = replicate_tower_x(tower, tower->pos_x + SCREEN_WIDTH);
     }
     if (tower_rep) {
-        printf("Replicating at x = %f !\n", tower_rep->pos_x);
         push_to_list(towers, tower_rep);
     }
 }
