@@ -7,7 +7,7 @@
 
 #include "myradar.h"
 
-int my_strlen(char *str)
+int my_strlen(const char *str)
 {
     int i = 0;
 
@@ -18,7 +18,7 @@ int my_strlen(char *str)
     return i;
 }
 
-void my_put_str(int fd, char *str)
+void my_put_str(int fd, const char *str)
 {
     if (str == NULL)
         return;

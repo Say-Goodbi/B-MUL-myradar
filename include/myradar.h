@@ -129,7 +129,7 @@ char **str_to_word_array(char *string, char delimiter);
 int append_structure(structures_t *towers_and_planes, char *lineptr);
 char *my_strndup(const char *src, int n);
 void print_framerate(game_t *game);
-void my_put_str(int fd, char *str);
+void my_put_str(int fd, const char *str);
 void my_put_nbr(int nb);
 sfTexture *look_for_texture(my_texture_t *textures, char *name);
 void show_hitboxes(game_t *game);

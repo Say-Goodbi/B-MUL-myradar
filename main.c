@@ -35,7 +35,9 @@ void tick_action(game_t *game, sfClock *clock)
     }
     if (empty_chunk(game->original_chunk) == 1) {
         sfRenderWindow_close(game->win);
-        my_put_str(1, "All planes either landed or crashed.\n");
+        my_put_str(1, "All planes either landed or crashed after ");
+        my_put_str(1, sfText_getString(game->texts[1].text));
+        my_put_str(1, ".\n");
     }
 }
 

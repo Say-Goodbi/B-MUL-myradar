@@ -35,6 +35,22 @@ void draw_a_plane(game_t *game, plane_t *plane)
     }
 }
 
+void actualize_timer(game_t *game)
+{
+    int seconds = game->seconds % 60;
+    size_t minutes = game->seconds / 60;
+    my_text_t timer_text = game->texts[1];
+    char str[7] = "--:--";
+
+    if (minutes < 100) {
+        str[0] = minutes / 10 + 48;
+        str[1] = minutes % 10 + 48;
+        str[3] = seconds / 10 + 48;
+        str[4] = seconds % 10 + 48;
+    }
+    sfText_setString(timer_text.text, str);
+}
+
 void draw_window(game_t *game)
 {
     plane_t **planes = game->planes;
@@ -50,6 +66,7 @@ void draw_window(game_t *game)
     for (int i = 0; planes[i] != NULL; i++) {
         draw_a_plane(game, planes[i]);
     }
+    actualize_timer(game);
     for (int i = 0; i < TEXTS_NB; i++)
         sfRenderWindow_drawText(game->win, game->texts[i].text, NULL);
     sfRenderWindow_display(game->win);
