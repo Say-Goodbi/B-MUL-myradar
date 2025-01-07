@@ -27,8 +27,8 @@
     #define TEXTURES_FOLDER "png"
     #define MAX_DEPTH 6
     #define SUBCHUNK_ROOT 2
-    #define PLANES_MAX 4
-    #define DO_PLANES_COLLIDE false
+    #define PLANES_MAX 5
+    #define DO_PLANES_COLLIDE true
     #define PLANE_HEIGHT 20 //285 / 2
     #define PLANE_WIDTH 20 //268 / 2
     #define TOWER_HEIGHT 0.7
