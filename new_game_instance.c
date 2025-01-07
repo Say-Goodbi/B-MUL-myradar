@@ -49,6 +49,8 @@ void free_planes_and_towers(game_t *game)
         free(game->planes[i]);
     }
     free(game->planes);
+    if (!game->towers)
+        return;
     for (int i = 0; game->towers[i]; i++) {
         sfRectangleShape_destroy(game->towers[i]->rectangle);
         sfCircleShape_destroy(game->towers[i]->circle);
