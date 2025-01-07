@@ -57,6 +57,7 @@ void draw_window(game_t *game)
     tower_t **towers = game->towers;
 
     sfRenderWindow_clear(game->win, sfBlack);
+    sfRenderWindow_drawRectangleShape(game->win, game->background, NULL);
     draw_chunk(game, game->original_chunk);
     if (towers) {
         for (int i = 0; towers[i] != NULL; i++) {

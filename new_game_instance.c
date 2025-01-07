@@ -19,6 +19,18 @@ game_t *check_game_instance(game_t *game)
     return game;
 }
 
+void set_background(game_t *game, sfVideoMode mode)
+{
+    sfVector2f size = {mode.width, mode.height};
+    sfRectangleShape *rect = sfRectangleShape_create();
+
+    if (rect == NULL)
+        return;
+    sfRectangleShape_setSize(rect, size);
+    sfRectangleShape_setTexture(rect, game->textures[2].texture, sfFalse);
+    game->background = rect;
+}
+
 game_t *new_game_instance(structures_t *towers_and_planes)
 {
     game_t *game = my_calloc(1, sizeof(game_t));
@@ -26,6 +38,7 @@ game_t *new_game_instance(structures_t *towers_and_planes)
 
     if (game == NULL)
         return NULL;
+    game->subroot = SUBCHUNK_ROOT;
     game->textures = load_textures();
     game->texts = load_texts();
     game->win = sfRenderWindow_create(mode, "My Radar",
@@ -38,6 +51,7 @@ game_t *new_game_instance(structures_t *towers_and_planes)
     set_texture_planes(game->textures, game->planes);
     set_texture_towers(game->textures, game->towers);
     game->original_chunk = create_original_chunk(game->planes, game->towers);
+    set_background(game, mode);
     return check_game_instance(game);
 }
 

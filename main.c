@@ -17,7 +17,7 @@ void manage_event(sfEvent *event, game_t *game)
         if (event->key.code == sfKeyS)
             interact_sprites_visibility(game);
         if (event->key.code == sfKeyC)
-            interact_divide_visibility(game);
+            interact_divide_visibility(game, event->key);
     }
 }
 
@@ -26,7 +26,7 @@ void tick_action(game_t *game, sfClock *clock)
     sfTime elapsed = {0};
 
     move_planes(game);
-    divide_chunk(game->original_chunk);
+    divide_chunk(game->original_chunk, game->subroot);
     print_framerate(game);
     elapsed = sfClock_getElapsedTime(clock);
     if (elapsed.microseconds >= 1000 / MAX_FRAMERATE) {

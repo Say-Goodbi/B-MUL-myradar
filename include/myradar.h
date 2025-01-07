@@ -22,15 +22,16 @@
     #define SCREEN_WIDTH 1920
     #define SCREEN_HEIGHT 1080
     #define MAX_FRAMERATE 60
-    #define TEXTURES_NB 2
+    #define TEXTURES_NB 3
     #define TEXTS_NB 2
     #define TEXTURES_FOLDER "png"
-    #define MAX_DEPTH 6
-    #define SUBCHUNK_ROOT 2
-    #define PLANES_MAX 5
+    #define MAX_DEPTH 4
+    #define SUBCHUNK_ROOT 3
+    #define PLANES_MAX 9
+    #define SUBROOT_LIMIT 5
     #define DO_PLANES_COLLIDE true
-    #define PLANE_HEIGHT 20 //285 / 2
-    #define PLANE_WIDTH 20 //268 / 2
+    #define PLANE_HEIGHT 20
+    #define PLANE_WIDTH 20
     #define TOWER_HEIGHT 0.7
     #define TOWER_WIDTH 0.7
 
@@ -105,9 +106,13 @@ typedef struct structures_s {
 typedef struct game_instance_s {
     size_t seconds;
     sfRenderWindow *win;
+    sfRectangleShape *background;
     bool show_divides;
     bool entities_shown;
     bool hitboxes_shown;
+    char max_depth;
+    char max_planes;
+    char subroot;
     chunk_t *original_chunk;
     plane_t **planes;
     tower_t **towers;
@@ -133,7 +138,7 @@ void my_put_str(int fd, const char *str);
 void my_put_nbr(int nb);
 sfTexture *look_for_texture(my_texture_t *textures, char *name);
 void show_hitboxes(game_t *game);
-void divide_chunk(chunk_t *parent);
+void divide_chunk(chunk_t *parent, char subroot);
 chunk_t *create_original_chunk(plane_t **planes, tower_t **towers);
 int empty_chunk(chunk_t *chunk);
 int exit_error(char *str);
@@ -144,7 +149,7 @@ void closest_to_chunk(float *val, float x, float w);
 float distance(float x, float y);
 void interact_hitboxes(game_t *game);
 void interact_sprites_visibility(game_t *game);
-void interact_divide_visibility(game_t *game);
+void interact_divide_visibility(game_t *game, sfKeyEvent event);
 my_text_t *load_texts(void);
 void collide_plane_tower(plane_t *plane, sfVector2f plane_pos,
     sfVector2f plane_size, tower_t *tower);

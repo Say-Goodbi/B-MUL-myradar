@@ -47,7 +47,8 @@ chunk_t *create_original_chunk(plane_t **planes, tower_t **towers)
 }
 
 // Claim craftss from parent chunk and collides.
-chunk_t *create_subchunk(chunk_t *parent, sfVector2f pos, sfVector2f size)
+chunk_t *create_subchunk(chunk_t *parent, sfVector2f pos, sfVector2f size,
+    char subroot)
 {
     chunk_t *chunk = my_calloc(1, sizeof(chunk_t));
     sfRectangleShape *rect = sfRectangleShape_create();
@@ -62,28 +63,28 @@ chunk_t *create_subchunk(chunk_t *parent, sfVector2f pos, sfVector2f size)
     claim_structures(chunk, parent);
     chunk->depth = parent->depth + 1;
     if (chunk->depth < MAX_DEPTH && chunk->amount_crafts >= PLANES_MAX) {
-        divide_chunk(chunk);
+        divide_chunk(chunk, subroot);
     }
     return chunk;
 }
 
-void divide_chunk(chunk_t *parent)
+void divide_chunk(chunk_t *parent, char subroot)
 {
     sfVector2f parentpos = sfRectangleShape_getPosition(parent->rect);
     sfVector2f psize = sfRectangleShape_getSize(parent->rect);
-    sfVector2f childsize = {psize.x / SUBCHUNK_ROOT, psize.y / SUBCHUNK_ROOT};
+    sfVector2f childsize = {psize.x / subroot, psize.y / subroot};
     sfVector2f pos = parentpos;
 
     if (parent->depth >= MAX_DEPTH)
         return;
-    parent->subchunks = my_calloc(SUBCHUNK_ROOT * SUBCHUNK_ROOT + 1,
+    parent->subchunks = my_calloc(subroot * subroot + 1,
         sizeof(chunk_t *));
     if (!parent->subchunks)
         return;
-    for (int i = 0; i < SUBCHUNK_ROOT; i++) {
-        for (int j = 0; j < SUBCHUNK_ROOT; j++) {
-            parent->subchunks[i * SUBCHUNK_ROOT + j] = create_subchunk(parent,
-                pos, childsize);
+    for (int i = 0; i < subroot; i++) {
+        for (int j = 0; j < subroot; j++) {
+            parent->subchunks[i * subroot + j] = create_subchunk(parent,
+                pos, childsize, subroot);
             pos.x += childsize.x;
         }
         pos.x = parentpos.x;

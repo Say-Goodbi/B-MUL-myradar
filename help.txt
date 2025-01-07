@@ -8,3 +8,5 @@ USER INTERACTIONS
  'L' key        enable/disable hitboxes and areas.
  'S' key        enable/disable sprites.
  'C' key        enable/disable chunks visibility.
+
+'Alt/Ctrl + C'  increases/decreases the chunks divisions.
