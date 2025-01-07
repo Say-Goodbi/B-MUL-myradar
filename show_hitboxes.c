@@ -13,7 +13,7 @@ void show_hitboxes(game_t *game)
         return;
     for (int i = 0; game->planes[i] != NULL; i++) {
         sfRectangleShape_setOutlineThickness(game->planes[i]->hitbox,
-            2.0);
+            1.0);
         sfRectangleShape_setOutlineColor(game->planes[i]->hitbox,
             sfYellow);
     }
