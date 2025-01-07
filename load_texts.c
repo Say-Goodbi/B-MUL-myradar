@@ -28,7 +28,7 @@ my_text_t *load_texts(void)
     if (texts == NULL)
         return NULL;
     if (font == NULL) {
-        my_put_str(2, "OverLight.otf not loaded.");
+        my_put_str(2, "Blockletter.otf not loaded.");
         return NULL;
     }
     texts[0] = fps_text;
