@@ -42,7 +42,7 @@ game_t *new_game_instance(structures_t *towers_and_planes)
     game->textures = load_textures();
     game->texts = load_texts();
     game->win = sfRenderWindow_create(mode, "My Radar",
-        sfResize | sfClose, NULL);
+        sfClose, NULL);
     sfRenderWindow_setFramerateLimit(game->win, MAX_FRAMERATE);
     game->entities_shown = true;
     game->hitboxes_shown = true;
