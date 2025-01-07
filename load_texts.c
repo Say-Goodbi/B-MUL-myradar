@@ -22,7 +22,7 @@ my_text_t *load_texts(void)
 {
     my_text_t *texts = my_calloc(TEXTS_NB, sizeof(my_text_t));
     sfFont *font = sfFont_createFromFile("Blockletter.otf");
-    my_text_t fps_text = {"    FPS", sfText_create(), {10, 80}, 30};
+    my_text_t fps_text = {"    FPS", sfText_create(), {15, 80}, 30};
     my_text_t timer_text = {"Timer", sfText_create(), {10, 20}, 50};
 
     if (texts == NULL)

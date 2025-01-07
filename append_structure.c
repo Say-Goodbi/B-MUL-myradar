@@ -7,6 +7,39 @@
 
 #include "myradar.h"
 
+tower_t *replicate_tower_x(tower_t *base, float x)
+{
+    tower_t *rep = my_calloc(1, sizeof(tower_t));
+    sfVector2f rep_pos = {x, base->pos_y};
+
+    if (rep == NULL)
+        return NULL;
+    rep->rectangle = sfRectangleShape_copy(base->rectangle);
+    rep->circle = sfCircleShape_copy(base->circle);
+    sfRectangleShape_setPosition(rep->rectangle, rep_pos);
+    sfCircleShape_setPosition(rep->circle, rep_pos);
+    rep->pos_x = x;
+    rep->pos_y = base->pos_y;
+    rep->radius = base->radius;
+    return rep;
+}
+
+void through_sides(tower_t *tower, llist_t **towers)
+{
+    tower_t *tower_rep = NULL;
+
+    if (tower->pos_x + tower->radius > SCREEN_WIDTH) {
+        tower_rep = replicate_tower_x(tower, tower->pos_x - SCREEN_WIDTH);
+    }
+    if (tower->pos_x - tower->radius < 0) {
+        tower_rep = replicate_tower_x(tower, tower->pos_x + SCREEN_WIDTH);
+    }
+    if (tower_rep) {
+        printf("Replicating at x = %f !\n", tower_rep->pos_x);
+        push_to_list(towers, tower_rep);
+    }
+}
+
 int append_tower(llist_t **towers, char **structure)
 {
     tower_t *new_tower = NULL;
@@ -15,6 +48,7 @@ int append_tower(llist_t **towers, char **structure)
         return -1;
     new_tower = create_tower(structure);
     if (new_tower != NULL) {
+        through_sides(new_tower, towers);
         push_to_list(towers, new_tower);
         return 0;
     }
