@@ -19,10 +19,6 @@ void change_envs(tower_t **towers, plane_t **planes)
         for (int j = 0; towers && towers[j]; j++) {
             collide_plane_tower(planes[i], plane_pos, plane_size, towers[j]);
         }
-        if (planes[i]->environment == SAFE)
-            continue;
-        if (DO_PLANES_COLLIDE)
-            collide_with_planes(planes, i);
     }
 }
 
@@ -32,4 +28,10 @@ void structure_collisions(tower_t **towers, plane_t **planes)
         return;
     }
     change_envs(towers, planes);
+    for (int i = 0; planes[i]; i++) {
+        if (planes[i]->environment == SAFE)
+            continue;
+        if (DO_PLANES_COLLIDE)
+            collide_with_planes(planes, i);
+    }
 }

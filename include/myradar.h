@@ -30,7 +30,8 @@
     #define SUBROOT_LIMIT 5 //Changeable
     #define DO_PLANES_COLLIDE true //Changeable
     #define DRAW_EMPTY_CHUNKS false //Changeable
-    #define DO_CHUNK_FAST false //Changeable
+    #define DO_CHUNK_FAST true //Changeable
+    #define FAST_TOWER_DEPTH 0 // Changeable (range 0 - 4)
     #define DO_TOWER_CROSSSIDES true //Changeable
     #define PLANE_HEIGHT 20
     #define PLANE_WIDTH 20
@@ -165,4 +166,5 @@ void move_planes(game_t *game);
 void draw_window(game_t *game);
 int display_help(void);
 void print_nofilepath(int ac);
+void change_envs(tower_t **towers, plane_t **planes);
 #endif

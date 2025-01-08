@@ -60,6 +60,8 @@ chunk_t *create_subchunk(chunk_t *parent, sfVector2f pos, sfVector2f size,
     sfRectangleShape_setPosition(rect, pos);
     sfRectangleShape_setFillColor(rect, sfTransparent);
     chunk->rect = rect;
+    if (parent->depth > FAST_TOWER_DEPTH)
+        change_envs(parent->towers, parent->planes);
     claim_structures(chunk, parent);
     chunk->depth = parent->depth + 1;
     if (chunk->depth < MAX_DEPTH && chunk->amount_crafts >= PLANES_MAX) {
