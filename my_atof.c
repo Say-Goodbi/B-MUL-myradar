@@ -8,6 +8,27 @@
 
 #include "myradar.h"
 
+double scientific_multiplicator(char *str)
+{
+    double mult = 1;
+    double factor = 1;
+    int i = 0;
+
+    if (str[i] != 'e')
+        return mult;
+    i++;
+    if (str[i] == '+')
+        factor = 10;
+    if (str[i] == '-')
+        factor = 0.1;
+    i++;
+    while (str[i] != 0 && str[i] > 47 && str[i] < 58) {
+        mult *= factor;
+        i++;
+    }
+    return mult;
+}
+
 float my_atof(char const *str)
 {
     int i = 0;
