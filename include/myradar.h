@@ -31,7 +31,7 @@
     #define DO_PLANES_COLLIDE true //Changeable
     #define DRAW_EMPTY_CHUNKS false //Changeable
     #define DO_CHUNK_FAST true //Changeable
-    #define FAST_TOWER_DEPTH 0 // Changeable (range 0 - 4)
+    #define FAST_TOWER_DEPTH 1 // Changeable (range 0 - 4)
     #define DO_TOWER_CROSSSIDES true //Changeable
     #define PLANE_HEIGHT 20
     #define PLANE_WIDTH 20
