@@ -45,7 +45,9 @@ SRC	=	main.c \
 	create_plane.c \
 	args_error.c \
 	draw_window.c \
-	move_planes.c
+	move_planes.c \
+	n_are_posfloats.c \
+	my_atof.c
 
 OBJ = $(SRC:.c=.o)
 

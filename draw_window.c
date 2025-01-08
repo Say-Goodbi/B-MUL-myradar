@@ -40,7 +40,7 @@ void draw_a_plane(game_t *game, plane_t *plane)
 
 void actualize_timer(game_t *game)
 {
-    int seconds = game->seconds % 60;
+    int seconds = (int)game->seconds % 60;
     size_t minutes = game->seconds / 60;
     my_text_t timer_text = game->texts[1];
     char str[7] = "--:--";

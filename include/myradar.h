@@ -24,15 +24,15 @@
     #define MAX_FRAMERATE 60
     #define TEXTURES_NB 3
     #define TEXTS_NB 2
-    #define MAX_DEPTH 4 //Changeable
-    #define SUBCHUNK_ROOT 3 //Changeable
-    #define PLANES_MAX 9 //Changeable
-    #define SUBROOT_LIMIT 5 //Changeable
+    #define MAX_DEPTH 3 //Changeable (Maximum subdivision depth)
+    #define SUBCHUNK_ROOT 5 //Changeable (Setting to more than 5 is mean)
+    #define PLANES_MAX 9 //Changeable (Number of planes needed to subdivide)
+    #define SUBROOT_LIMIT 7 //Changeable (Please don't abuse)
     #define DO_PLANES_COLLIDE true //Changeable
-    #define DRAW_EMPTY_CHUNKS false //Changeable
-    #define DO_CHUNK_FAST true //Changeable
-    #define FAST_TOWER_DEPTH 1 // Changeable (range 0 - 4)
     #define DO_TOWER_CROSSSIDES true //Changeable
+    #define DRAW_EMPTY_CHUNKS false //Changeable
+    #define DO_CHUNK_FAST true //Changeable (Faster but mess with colors)
+    #define FAST_TOWER_DEPTH 1 // Changeable (Depth where planes are covered)
     #define PLANE_HEIGHT 20
     #define PLANE_WIDTH 20
     #define TOWER_HEIGHT 0.7
@@ -84,7 +84,7 @@ typedef struct myplane {
     float arrival_x;
     float arrival_y;
     float speed_pps;
-    size_t departure_delay;
+    float departure_delay;
     sfRectangleShape *textbox;
     sfRectangleShape *hitbox;
     state_t state;
@@ -107,7 +107,7 @@ typedef struct structures_s {
 } structures_t;
 
 typedef struct game_instance_s {
-    size_t seconds;
+    float seconds;
     sfRenderWindow *win;
     sfRectangleShape *background;
     bool show_divides;
@@ -167,4 +167,7 @@ void draw_window(game_t *game);
 int display_help(void);
 void print_nofilepath(int ac);
 void change_envs(tower_t **towers, plane_t **planes);
+float my_atof(char const *str);
+int is_posint(char *str);
+int n_are_posfloats(char **word_array, int n);
 #endif

@@ -24,24 +24,34 @@ void fps_to_string(int fps, sfText *text)
     free(buff);
 }
 
+double clock_to_seconds(sfClock *clock)
+{
+    int elapsed = sfTime_asMicroseconds(sfClock_getElapsedTime(clock));
+
+    sfClock_restart(clock);
+    return (double)elapsed / 1000000;
+}
+
 void print_framerate(game_t *game)
 {
     static int first = 1;
     static sfClock *clock;
     static int fps = 0;
-    sfTime elapsed = {0};
+    static double timer = 1;
+    double elapsed = 0;
 
     if (first == 1) {
         clock = sfClock_create();
         first = 0;
     }
-    elapsed = sfClock_getElapsedTime(clock);
-    if (sfTime_asSeconds(elapsed) >= 1) {
+    elapsed = clock_to_seconds(clock);
+    timer -= elapsed;
+    game->seconds += elapsed;
+    if (timer <= 0) {
         fps_to_string(fps, game->texts[0].text);
         fps = 0;
         sfClock_restart(clock);
-        game->seconds += (int)sfTime_asSeconds(elapsed);
-    } else {
+        timer = 1;
+    } else
         fps++;
-    }
 }

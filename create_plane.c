@@ -45,8 +45,8 @@ void fill_plane(plane_t *plane, char **structure)
     plane->departure_y = plane->position.y;
     plane->arrival_x = (float)my_atoi(structure[3]);
     plane->arrival_y = (float)my_atoi(structure[4]);
-    plane->speed_pps = (float)my_atoi(structure[5]);
-    plane->departure_delay = my_atoi(structure[6]);
+    plane->speed_pps = my_atof(structure[5]);
+    plane->departure_delay = my_atof(structure[6]);
     plane->state = WAITING;
     plane->rotation = atan2((plane->arrival_y - plane->departure_y),
         (plane->arrival_x - plane->departure_x)) * 180 / M_PI - 90;
@@ -58,7 +58,8 @@ plane_t *create_plane(char **structure)
 {
     plane_t *plane = NULL;
 
-    if (n_are_posints(structure + 1, 6) != 0)
+    if (n_are_posints(structure + 1, 4) != 0 ||
+        n_are_posfloats(structure + 5, 2) != 0)
         return NULL;
     plane = my_calloc(1, sizeof(plane_t));
     if (plane == NULL)
