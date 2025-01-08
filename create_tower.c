@@ -21,7 +21,7 @@ void fill_tower_circle(tower_t *tower, sfVector2f pos)
 
 void fill_tower(tower_t *tower, char **structure)
 {
-    float radius = (float)my_atoi(structure[3]);
+    float radius = (float)my_atoi(structure[3]) * 1.5;
     sfVector2f size = {TOWER_HEIGHT * radius, TOWER_WIDTH * radius};
     sfVector2f origin = {(TOWER_HEIGHT * radius) / 2,
         (TOWER_WIDTH * radius) / 2};

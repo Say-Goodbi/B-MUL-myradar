@@ -11,8 +11,11 @@ void draw_chunk(game_t *game, chunk_t *chunk)
 {
     if (!chunk || game->show_divides == false)
         return;
-    sfRenderWindow_drawRectangleShape(game->win, chunk->rect, NULL);
+    if (DRAW_EMPTY_CHUNKS)
+        sfRenderWindow_drawRectangleShape(game->win, chunk->rect, NULL);
     if (chunk->subchunks) {
+        if (!DRAW_EMPTY_CHUNKS)
+            sfRenderWindow_drawRectangleShape(game->win, chunk->rect, NULL);
         for (int i = 0; chunk->subchunks[i]; i++) {
             draw_chunk(game, chunk->subchunks[i]);
         }

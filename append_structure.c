@@ -47,7 +47,8 @@ int append_tower(llist_t **towers, char **structure)
         return -1;
     new_tower = create_tower(structure);
     if (new_tower != NULL) {
-        through_sides(new_tower, towers);
+        if (DO_TOWER_CROSSSIDES)
+            through_sides(new_tower, towers);
         push_to_list(towers, new_tower);
         return 0;
     }

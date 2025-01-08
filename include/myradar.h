@@ -24,12 +24,14 @@
     #define MAX_FRAMERATE 60
     #define TEXTURES_NB 3
     #define TEXTS_NB 2
-    #define TEXTURES_FOLDER "png"
-    #define MAX_DEPTH 4
-    #define SUBCHUNK_ROOT 3
-    #define PLANES_MAX 9
-    #define SUBROOT_LIMIT 5
-    #define DO_PLANES_COLLIDE true
+    #define MAX_DEPTH 4 //Changeable
+    #define SUBCHUNK_ROOT 3 //Changeable
+    #define PLANES_MAX 9 //Changeable
+    #define SUBROOT_LIMIT 5 //Changeable
+    #define DO_PLANES_COLLIDE true //Changeable
+    #define DRAW_EMPTY_CHUNKS false //Changeable
+    #define DO_CHUNK_FAST false //Changeable
+    #define DO_TOWER_CROSSSIDES true //Changeable
     #define PLANE_HEIGHT 20
     #define PLANE_WIDTH 20
     #define TOWER_HEIGHT 0.7

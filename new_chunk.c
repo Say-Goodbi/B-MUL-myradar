@@ -56,7 +56,7 @@ chunk_t *create_subchunk(chunk_t *parent, sfVector2f pos, sfVector2f size,
     if (chunk == NULL || rect == NULL)
         return NULL;
     sfRectangleShape_setSize(rect, size);
-    sfRectangleShape_setOutlineThickness(rect, 0.5);
+    sfRectangleShape_setOutlineThickness(rect, 1);
     sfRectangleShape_setPosition(rect, pos);
     sfRectangleShape_setFillColor(rect, sfTransparent);
     chunk->rect = rect;

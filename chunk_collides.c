@@ -26,7 +26,8 @@ bool collide_squares(sfRectangleShape *chunk_square, sfRectangleShape *hitbox)
 
 void append_if_pcollide(chunk_t *chunk, plane_t *plane, llist_t **planes_list)
 {
-    if (plane->state != FLYING || plane->environment == SAFE)
+    if (plane->state != FLYING ||
+        (DO_CHUNK_FAST && plane->environment == SAFE))
         return;
     if (collide_squares(chunk->rect, plane->hitbox)) {
         chunk->amount_crafts += 1;
