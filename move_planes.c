@@ -9,15 +9,15 @@
 
 bool is_beyond_destination(plane_t *p)
 {
-    if (distance((int)p->position.x - (int)p->arrival_x,
-        (int)p->position.y - (int)p->arrival_y) < PLANE_WIDTH / 2)
+    if (distance((int)p->pos.x - (int)p->arrival.x,
+        (int)p->pos.y - (int)p->arrival.y) < PLANE_WIDTH / 2)
         return true;
     return false;
 }
 
 void move_a_plane(plane_t *p)
 {
-    sfVector2f pos = p->position;
+    sfVector2f pos = p->pos;
     sfVector2f speed = {0, 0};
 
     speed.x = p->direction.x * p->speed_pps;
@@ -26,7 +26,7 @@ void move_a_plane(plane_t *p)
     pos.y += 1.0 / MAX_FRAMERATE * speed.y;
     sfRectangleShape_setPosition(p->hitbox, pos);
     sfRectangleShape_setPosition(p->textbox, pos);
-    p->position = pos;
+    p->pos = pos;
 }
 
 void move_planes(game_t *game)

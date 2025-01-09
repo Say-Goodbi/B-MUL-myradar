@@ -10,7 +10,7 @@
 tower_t *replicate_tower_x(tower_t *base, float x)
 {
     tower_t *rep = my_calloc(1, sizeof(tower_t));
-    sfVector2f rep_pos = {x, base->pos_y};
+    sfVector2f rep_pos = {x, base->pos.y};
 
     if (rep == NULL)
         return NULL;
@@ -18,8 +18,7 @@ tower_t *replicate_tower_x(tower_t *base, float x)
     rep->circle = sfCircleShape_copy(base->circle);
     sfRectangleShape_setPosition(rep->rectangle, rep_pos);
     sfCircleShape_setPosition(rep->circle, rep_pos);
-    rep->pos_x = x;
-    rep->pos_y = base->pos_y;
+    rep->pos = rep_pos;
     rep->radius = base->radius;
     return rep;
 }
@@ -28,11 +27,11 @@ void through_sides(tower_t *tower, llist_t **towers)
 {
     tower_t *tower_rep = NULL;
 
-    if (tower->pos_x + tower->radius > SCREEN_WIDTH) {
-        tower_rep = replicate_tower_x(tower, tower->pos_x - SCREEN_WIDTH);
+    if (tower->pos.x + tower->radius > SCREEN_WIDTH) {
+        tower_rep = replicate_tower_x(tower, tower->pos.x - SCREEN_WIDTH);
     }
-    if (tower->pos_x - tower->radius < 0) {
-        tower_rep = replicate_tower_x(tower, tower->pos_x + SCREEN_WIDTH);
+    if (tower->pos.x - tower->radius < 0) {
+        tower_rep = replicate_tower_x(tower, tower->pos.x + SCREEN_WIDTH);
     }
     if (tower_rep) {
         push_to_list(towers, tower_rep);

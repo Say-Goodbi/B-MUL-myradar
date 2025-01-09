@@ -15,7 +15,7 @@ void change_envs(tower_t **towers, plane_t **planes)
     for (int i = 0; planes[i]; i++) {
         if (planes[i]->state != FLYING || planes[i]->environment == SAFE)
             continue;
-        plane_pos = sfRectangleShape_getPosition(planes[i]->hitbox);
+        plane_pos = planes[i]->pos;
         for (int j = 0; towers && towers[j]; j++) {
             collide_plane_tower(planes[i], plane_pos, plane_size, towers[j]);
         }

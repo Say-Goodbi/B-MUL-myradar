@@ -28,8 +28,7 @@ void fill_tower(tower_t *tower, char **structure)
     sfVector2f pos = {(float)my_atoi(structure[1]),
         (float)my_atoi(structure[2])};
 
-    tower->pos_x = pos.x;
-    tower->pos_y = pos.y;
+    tower->pos = pos;
     tower->radius = radius;
     tower->rectangle = sfRectangleShape_create();
     sfRectangleShape_setSize(tower->rectangle, size);

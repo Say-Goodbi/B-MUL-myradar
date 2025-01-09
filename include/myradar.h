@@ -24,15 +24,15 @@
     #define MAX_FRAMERATE 60
     #define TEXTURES_NB 3
     #define TEXTS_NB 2
-    #define MAX_DEPTH 3//3 //Changeable (Maximum subdivision depth)
-    #define SUBCHUNK_ROOT 4//3 //Changeable (Setting to more than 5 is mean)
+    #define MAX_DEPTH_WIDTH 30//30 //Changeable (Maximum subdivision depth)
+    #define SUBCHUNK_ROOT 2//3 //Changeable (Setting to more than 5 is mean)
     #define PLANES_MAX 9 //Changeable (Number of planes needed to subdivide)
     #define SUBROOT_LIMIT 7 //Changeable (Please don't abuse)
     #define DO_PRECISION false
     #define DO_PLANES_COLLIDE true //Changeable
     #define DO_TOWER_CROSSSIDES true //Changeable
     #define DRAW_EMPTY_CHUNKS false //Changeable
-    #define DO_CHUNK_FAST false //Changeable (Faster but mess with colors)
+    #define COVER_BEFORE false //Changeable (Faster but mess with colors)
     #define FAST_TOWER_DEPTH 1 // Changeable (Depth where planes are covered)
     #define PLANE_HEIGHT 20
     #define PLANE_WIDTH 20
@@ -66,19 +66,16 @@ typedef struct my_text {
 typedef struct mytower {
     sfRectangleShape *rectangle;
     sfCircleShape *circle;
-    float pos_x;
-    float pos_y;
+    sfVector2f pos;
     float radius;
 } tower_t;
 
 typedef struct myplane {
     env_t environment;
     sfVector2f direction;
-    float departure_x;
-    float departure_y;
-    sfVector2f position;
-    float arrival_x;
-    float arrival_y;
+    sfVector2f departure;
+    sfVector2f pos;
+    sfVector2f arrival;
     float speed_pps;
     float departure_delay;
     sfRectangleShape *textbox;
@@ -88,6 +85,8 @@ typedef struct myplane {
 } plane_t;
 
 typedef struct chunk_s {
+    sfVector2f pos;
+    sfVector2f size;
     struct chunk_s **subchunks;
     plane_t **planes;
     tower_t **towers;

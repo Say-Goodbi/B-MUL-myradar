@@ -9,7 +9,7 @@
 
 bool is_in_circle(sfVector2f pos, tower_t *t)
 {
-    if (distance(pos.x - t->pos_x, pos.y - t->pos_y) < t->radius)
+    if (distance(pos.x - t->pos.x, pos.y - t->pos.y) < t->radius)
         return true;
     return false;
 }
@@ -17,7 +17,7 @@ bool is_in_circle(sfVector2f pos, tower_t *t)
 bool collide_square_tower(sfVector2f plane_pos,
     sfVector2f plane_size, tower_t *tower)
 {
-    sfVector2f tower_pos = sfRectangleShape_getPosition(tower->rectangle);
+    sfVector2f tower_pos = tower->pos;
     float closest_x = tower_pos.x;
     float closest_y = tower_pos.y;
     float dist = 0;
@@ -51,8 +51,8 @@ void collide_plane_tower(plane_t *plane, sfVector2f plane_pos,
 
 bool collide_plane_plane(plane_t *plane_1, plane_t *plane_2)
 {
-    sfVector2f p1 = plane_1->position;
-    sfVector2f p2 = plane_2->position;
+    sfVector2f p1 = plane_1->pos;
+    sfVector2f p2 = plane_2->pos;
     sfVector2f s1 = sfRectangleShape_getSize(plane_1->hitbox);
     sfVector2f s2 = sfRectangleShape_getSize(plane_2->hitbox);
 
