@@ -28,7 +28,7 @@
     #define SUBCHUNK_ROOT 2//3 //Changeable (Setting to more than 5 is mean)
     #define PLANES_MAX 9 //Changeable (Number of planes needed to subdivide)
     #define SUBROOT_LIMIT 7 //Changeable (Please don't abuse)
-    #define DO_PRECISION false
+    #define DO_PRECISION true //Changeable (Slightly slows but is smoother)
     #define DO_PLANES_COLLIDE true //Changeable
     #define DO_TOWER_CROSSSIDES true //Changeable
     #define DRAW_EMPTY_CHUNKS false //Changeable
