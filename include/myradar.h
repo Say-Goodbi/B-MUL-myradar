@@ -166,4 +166,5 @@ void change_envs(tower_t **towers, plane_t **planes);
 float my_atof(char const *str);
 int is_posint(char *str);
 int n_are_posfloats(char **word_array, int n);
+void stop_fps(void);
 #endif

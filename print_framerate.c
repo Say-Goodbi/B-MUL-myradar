@@ -35,7 +35,7 @@ double clock_to_seconds(sfClock *clock)
 void print_framerate(game_t *game)
 {
     static int first = 1;
-    static sfClock *clock;
+    static sfClock *clock = NULL;
     static int fps = 0;
     static double timer = 1;
     double elapsed = 0;
@@ -54,4 +54,12 @@ void print_framerate(game_t *game)
         timer = 1;
     } else
         fps++;
+}
+
+void stop_fps(void)
+{
+    static sfClock *clock;
+
+    if (clock)
+        sfClock_destroy(clock);
 }

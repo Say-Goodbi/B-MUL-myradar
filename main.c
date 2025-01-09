@@ -47,13 +47,14 @@ int my_radar(structures_t *towers_and_planes)
     sfClock *clock = sfClock_create();
     sfEvent event;
 
-    if (!game)
+    if (!game || !clock)
         return 84;
     while (sfRenderWindow_isOpen(game->win)) {
         while (sfRenderWindow_pollEvent(game->win, &event))
             manage_event(&event, game);
         tick_action(game, clock);
     }
+    sfClock_destroy(clock);
     destroy_game_instance(game);
     return 0;
 }
@@ -77,5 +78,7 @@ int main(int ac, char **av)
     fclose(stream);
     if (script_res != 0)
         return exit_error("Error : Given script is invalid.\n");
-    return my_radar(towers_and_planes);
+    script_res = my_radar(towers_and_planes);
+    free(towers_and_planes);
+    return script_res;
 }

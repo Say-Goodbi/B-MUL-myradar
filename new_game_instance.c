@@ -73,6 +73,7 @@ void free_planes_and_towers(game_t *game)
 
 void destroy_game_instance(game_t *game)
 {
+    stop_fps();
     sfRectangleShape_destroy(game->original_chunk->rect);
     sfRectangleShape_destroy(game->background);
     free(game->original_chunk);
