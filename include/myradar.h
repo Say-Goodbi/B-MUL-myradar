@@ -32,7 +32,7 @@
     #define DO_PLANES_COLLIDE true //Changeable
     #define DO_TOWER_CROSSSIDES true //Changeable
     #define DRAW_EMPTY_CHUNKS false //Changeable
-    #define COVER_BEFORE false //Changeable (Faster but mess with colors)
+    #define COVER_BEFORE false //Changeable (Is experimental, Mess with colors)
     #define FAST_TOWER_DEPTH 1 // Changeable (Depth where planes are covered)
     #define PLANE_HEIGHT 20
     #define PLANE_WIDTH 20
@@ -115,6 +115,7 @@ typedef struct game_instance_s {
     plane_t **planes;
     tower_t **towers;
     my_texture_t *textures;
+    sfFont *font;
     my_text_t *texts;
 } game_t;
 
@@ -148,7 +149,7 @@ float distance(float x, float y);
 void interact_hitboxes(game_t *game);
 void interact_sprites_visibility(game_t *game);
 void interact_divide_visibility(game_t *game, sfKeyEvent event);
-my_text_t *load_texts(void);
+my_text_t *load_texts(game_t *game);
 void collide_plane_tower(plane_t *plane, sfVector2f plane_pos,
     sfVector2f plane_size, tower_t *tower);
 void collide_with_planes(plane_t **planes, int i);

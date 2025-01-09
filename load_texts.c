@@ -18,7 +18,7 @@ void set_text(my_text_t text, sfFont *font)
     sfText_setString(text.text, text.name);
 }
 
-my_text_t *load_texts(void)
+my_text_t *load_texts(game_t *game)
 {
     my_text_t *texts = my_calloc(TEXTS_NB, sizeof(my_text_t));
     sfFont *font = sfFont_createFromFile("Blockletter.otf");
@@ -31,6 +31,7 @@ my_text_t *load_texts(void)
         my_put_str(2, "Blockletter.otf not loaded.");
         return NULL;
     }
+    game->font = font;
     texts[0] = fps_text;
     texts[1] = timer_text;
     for (int i = 0; i < TEXTS_NB; i++) {

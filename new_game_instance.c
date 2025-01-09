@@ -40,7 +40,7 @@ game_t *new_game_instance(structures_t *towers_and_planes)
         return NULL;
     game->subroot = SUBCHUNK_ROOT;
     game->textures = load_textures();
-    game->texts = load_texts();
+    game->texts = load_texts(game);
     game->win = sfRenderWindow_create(mode, "My Radar",
         sfClose, NULL);
     sfRenderWindow_setFramerateLimit(game->win, MAX_FRAMERATE);
@@ -74,7 +74,9 @@ void free_planes_and_towers(game_t *game)
 void destroy_game_instance(game_t *game)
 {
     sfRectangleShape_destroy(game->original_chunk->rect);
+    sfRectangleShape_destroy(game->background);
     free(game->original_chunk);
+    sfFont_destroy(game->font);
     sfRenderWindow_destroy(game->win);
     free_planes_and_towers(game);
     for (int i = 0; i < TEXTURES_NB; i++) {
