@@ -7,7 +7,14 @@
 
 #include "myradar.h"
 
-bool_t collide_square_tower(sfVector2f plane_pos,
+bool is_in_circle(sfVector2f pos, tower_t *t)
+{
+    if (distance(pos.x - t->pos_x, pos.y - t->pos_y) < t->radius)
+        return true;
+    return false;
+}
+
+bool collide_square_tower(sfVector2f plane_pos,
     sfVector2f plane_size, tower_t *tower)
 {
     sfVector2f tower_pos = sfRectangleShape_getPosition(tower->rectangle);
@@ -19,21 +26,24 @@ bool_t collide_square_tower(sfVector2f plane_pos,
     closest_to_rect(&closest_y, plane_pos.y, plane_size.y);
     dist = distance(closest_x - tower_pos.x, closest_y - tower_pos.y);
     if (dist <= tower->radius) {
-        return TRUE;
+        return true;
     } else {
-        return FALSE;
+        return false;
     }
 }
 
 void collide_plane_tower(plane_t *plane, sfVector2f plane_pos,
     sfVector2f plane_size, tower_t *tower)
 {
-    bool_t within_guard = FALSE;
+    bool within_guard = false;
 
     plane_size.x /= 2;
     plane_size.y /= 2;
-    within_guard = collide_square_tower(plane_pos, plane_size, tower);
-    if (within_guard == TRUE) {
+    if (DO_PRECISION)
+        within_guard = collide_square_tower(plane_pos, plane_size, tower);
+    else
+        within_guard = is_in_circle(plane_pos, tower);
+    if (within_guard == true) {
         plane->environment = SAFE;
         sfRectangleShape_setOutlineColor(plane->hitbox, sfGreen);
     }

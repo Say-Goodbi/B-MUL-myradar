@@ -35,7 +35,7 @@ void append_if_pcollide(chunk_t *chunk, plane_t *plane, llist_t **planes_list)
     }
 }
 
-bool_t collide_chunk_tower(sfVector2f chunk_pos,
+bool collide_chunk_tower(sfVector2f chunk_pos,
     sfVector2f chunk_size, tower_t *tower)
 {
     sfVector2f tower_pos = sfRectangleShape_getPosition(tower->rectangle);
@@ -47,9 +47,9 @@ bool_t collide_chunk_tower(sfVector2f chunk_pos,
     closest_to_chunk(&closest_y, chunk_pos.y, chunk_size.y);
     dist = distance(closest_x - tower_pos.x, closest_y - tower_pos.y);
     if (dist <= tower->radius) {
-        return TRUE;
+        return true;
     } else {
-        return FALSE;
+        return false;
     }
 }
 
@@ -58,7 +58,7 @@ void append_if_tcollide(chunk_t *chunk, tower_t *tower, llist_t **towers_list)
     sfVector2f size = sfRectangleShape_getSize(chunk->rect);
     sfVector2f pos = sfRectangleShape_getPosition(chunk->rect);
 
-    if (collide_chunk_tower(pos, size, tower) == TRUE) {
+    if (collide_chunk_tower(pos, size, tower) == true) {
         chunk->amount_towers += 1;
         append_to_list(towers_list, tower);
     }

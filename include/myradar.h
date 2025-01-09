@@ -24,24 +24,20 @@
     #define MAX_FRAMERATE 60
     #define TEXTURES_NB 3
     #define TEXTS_NB 2
-    #define MAX_DEPTH 3 //Changeable (Maximum subdivision depth)
-    #define SUBCHUNK_ROOT 5 //Changeable (Setting to more than 5 is mean)
+    #define MAX_DEPTH 3//3 //Changeable (Maximum subdivision depth)
+    #define SUBCHUNK_ROOT 4//3 //Changeable (Setting to more than 5 is mean)
     #define PLANES_MAX 9 //Changeable (Number of planes needed to subdivide)
     #define SUBROOT_LIMIT 7 //Changeable (Please don't abuse)
+    #define DO_PRECISION false
     #define DO_PLANES_COLLIDE true //Changeable
     #define DO_TOWER_CROSSSIDES true //Changeable
     #define DRAW_EMPTY_CHUNKS false //Changeable
-    #define DO_CHUNK_FAST true //Changeable (Faster but mess with colors)
+    #define DO_CHUNK_FAST false //Changeable (Faster but mess with colors)
     #define FAST_TOWER_DEPTH 1 // Changeable (Depth where planes are covered)
     #define PLANE_HEIGHT 20
     #define PLANE_WIDTH 20
     #define TOWER_HEIGHT 0.7
     #define TOWER_WIDTH 0.7
-
-typedef enum bool_s {
-    TRUE = 0,
-    FALSE = 1
-} bool_t;
 
 typedef enum state_s {
     WAITING = 0,
@@ -146,7 +142,7 @@ chunk_t *create_original_chunk(plane_t **planes, tower_t **towers);
 int empty_chunk(chunk_t *chunk);
 int exit_error(char *str);
 void structure_collisions(tower_t **towers, plane_t **planes);
-bool_t collide_square_tower(sfVector2f square_pos,
+bool collide_square_tower(sfVector2f square_pos,
     sfVector2f square_size, tower_t *tower);
 void closest_to_chunk(float *val, float x, float w);
 float distance(float x, float y);
